@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author liming
@@ -26,8 +25,9 @@ public class DemoController {
 
     @GetMapping
     public Object demo() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "我是一个好青年. " + dateFormat.format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateTime = LocalDateTime.now().format(formatter);
+        return "我是一个好青年. " + dateTime;
     }
 
     @ResponseBody
