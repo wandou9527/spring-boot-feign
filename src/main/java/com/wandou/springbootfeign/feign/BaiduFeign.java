@@ -1,20 +1,26 @@
 package com.wandou.springbootfeign.feign;
 
 import com.wandou.springbootfeign.config.FeignConfig;
-import feign.Param;
-import feign.RequestLine;
+import com.wandou.springbootfeign.dto.BaiduParamDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author liming
- * @date 2020/10/29
+ * @date 2020/11/16
  * @description
  */
 
 @FeignClient(name = "baidu", url = "http://baidu.com/", configuration = FeignConfig.class, primary = false)
 public interface BaiduFeign {
 
-    @RequestLine("GET /s?wd={wd}")
-    String search(@Param("wd") String wd);
+    @RequestMapping("/s")
+    String search(@RequestParam("wd") String wd);
+
+    @RequestMapping(path = "/s", method = RequestMethod.GET)
+    String searchV2(@SpringQueryMap BaiduParamDTO param);
 
 }
